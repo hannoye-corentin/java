@@ -9,9 +9,9 @@ public class App {
         int total = 0;
         int nbrEssais = 5;
 
-        for(int i = 0; i < nbrEssais; i++) {
+        Random generateur = new Random();
 
-            Random generateur = new Random();
+        for(int i = 0; i < nbrEssais; i++) {
 
             int lancer = (generateur.nextInt(6) + 1);
 
