@@ -7,7 +7,6 @@ public class App {
         // Ex. 4.
         Ex4.main(args);
         
-        
     }
     
 }
