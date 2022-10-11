@@ -8,17 +8,35 @@ public class App {
 
         int total = 0;
         int nbrEssais = 5;
+        int nbrEssaisJeu = 0;
+        String lancerDes = "";
 
         Random generateur = new Random();
 
-        for(int i = 0; i < nbrEssais; i++) {
+        while(true) {
 
-            int lancer = (generateur.nextInt(6) + 1);
+            nbrEssaisJeu++;
 
-            total += lancer;
+            total = 0;
+            lancerDes = "";
+
+            for(int i = 0; i < nbrEssais; i++) {
+
+                int lancer = (generateur.nextInt(6) + 1);
+
+                total += lancer;
+
+                lancerDes += (i == 4 ? lancer : lancer + ", ");
+
+            }
+            if(total == 20) {
+                break;
+            } else {
+                System.out.println("Vous avez perdu... (" + total + ")");
+            }
 
         }
-        System.out.println(total == 20 ? "Vous avez gagné !" : "Perdu ! ");
+        System.out.println("Vous avez gagné ! (en " + nbrEssaisJeu + " partie" + (nbrEssaisJeu > 1 ? "s" : "") + "), vos chiffres : " + lancerDes);
 
     }
     
