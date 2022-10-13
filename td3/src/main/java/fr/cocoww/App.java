@@ -1,5 +1,7 @@
 package fr.cocoww;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public class App {
@@ -9,7 +11,8 @@ public class App {
         int total = 0;
         int nbrEssais = 5;
         int nbrEssaisJeu = 0;
-        String lancerDes = "";
+        List<String> lancerDes = new ArrayList<>();
+        String lancerDesJoin;
 
         Random generateur = new Random();
 
@@ -17,8 +20,10 @@ public class App {
 
             nbrEssaisJeu++;
 
-            total = 0;
-            lancerDes = "";
+            if(total != 0) {
+                total = 0;
+                lancerDes.clear();
+            }
 
             for(int i = 0; i < nbrEssais; i++) {
 
@@ -26,17 +31,18 @@ public class App {
 
                 total += lancer;
 
-                lancerDes += (i == 4 ? lancer : lancer + ", ");
+                lancerDes.add(String.valueOf(lancer));
 
             }
+            lancerDesJoin = String.join(", ", lancerDes);
             if(total == 20) {
                 break;
             } else {
-                System.out.println("Vous avez perdu... (" + total + ")");
+                System.out.println("\u001B[31mVous avez perdu... (" + lancerDesJoin + " = " + total + ")");
             }
 
         }
-        System.out.println("Vous avez gagné ! (en " + nbrEssaisJeu + " partie" + (nbrEssaisJeu > 1 ? "s" : "") + "), vos chiffres : " + lancerDes);
+        System.out.println("\u001B[32mVous avez gagné ! (en " + nbrEssaisJeu + " partie" + (nbrEssaisJeu > 1 ? "s" : "") + "), vos chiffres : " + lancerDesJoin + "\u001B[0m");
 
     }
     
