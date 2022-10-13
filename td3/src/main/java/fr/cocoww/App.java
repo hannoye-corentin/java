@@ -4,8 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+/**
+ * 
+ * @author Cocoww59
+ */
+
 public class App {
-    
+
     public static void main(String[] args) {
 
         int total = 0;
