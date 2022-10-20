@@ -3,15 +3,12 @@ package fr.cocoww;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-import java.util.Scanner;
 
 public class App {
 
     public static void main(String[] args) {
 
         final int MAX_JUSTEPRIX = 100;
-
-        Scanner scanner = new Scanner(System.in);
         Random rdm = new Random();
 
         final int maxGames = 10_000;
@@ -34,6 +31,7 @@ public class App {
                     // 1er essai
                     userPrix = (rdm.nextInt(MAX_JUSTEPRIX) + 1);
                 } else {
+                    // <= 50
                     if(justePrix <= (MAX_JUSTEPRIX / 2)) {
                         if(justePrix < (MAX_JUSTEPRIX / 2 / 2)) {
                             // 1-25
@@ -47,6 +45,7 @@ public class App {
                             );
                         }
                     } else if(justePrix >= (MAX_JUSTEPRIX / 2)) {
+                        // >= 50
                         if(justePrix > (MAX_JUSTEPRIX / 2) + (MAX_JUSTEPRIX / 2 / 2)) {
                             // 75-100
                             userPrix = (rdm.nextInt(
@@ -64,10 +63,9 @@ public class App {
                             );
 
                         }
-
                     }
-
                 }
+                // Déjà tenté
                 if(alreadyUsedPrix.contains(userPrix)) {
                     continue;
                 }
@@ -77,7 +75,6 @@ public class App {
             }
 
         }
-        scanner.close();
         System.out.println("En moyenne, sur " + maxGames + " parties, il m'a fallut " + (totalTry / maxGames) + " tentatives");
         
     }
