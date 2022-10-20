@@ -65,8 +65,17 @@ public class App {
                         }
                     }
                 }
+                boolean isContinue = false;
+                
+                for(int i = 0; i < alreadyUsedPrix.size(); i++) {
+                    if((userPrix > (int)alreadyUsedPrix.get(i) && userPrix < justePrix) || (userPrix < (int)alreadyUsedPrix.get(i) && userPrix > justePrix)) {
+                        isContinue = true;
+                        break;
+                    }
+                }
+
                 // Déjà tenté
-                if(alreadyUsedPrix.contains(userPrix)) {
+                if(alreadyUsedPrix.contains(userPrix) || isContinue) {
                     continue;
                 }
                 alreadyUsedPrix.add(userPrix);
