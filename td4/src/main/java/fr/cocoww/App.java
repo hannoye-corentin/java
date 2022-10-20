@@ -75,7 +75,7 @@ public class App {
             }
 
         }
-        System.out.println("En moyenne, sur " + maxGames + " parties, il m'a fallut " + (totalTry / maxGames) + " tentatives");
+        System.out.println("En moyenne, sur " + maxGames + " parties, il m'a fallu " + (totalTry / maxGames) + " tentatives");
         
     }
     
