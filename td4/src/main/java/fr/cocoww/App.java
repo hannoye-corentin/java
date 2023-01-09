@@ -9,83 +9,60 @@ public class App {
     public static void main(String[] args) {
 
         final int MAX_JUSTEPRIX = 100;
-        Random rdm = new Random();
+        final int MAX_GAMES = 10_000;
 
-        final int maxGames = 10_000;
-        double currentGame = 0;
-
+        int currentGame = 0;
         double totalTry = 0;
 
-        while(currentGame != maxGames) {
+        while(currentGame != MAX_GAMES) {
 
             currentGame++;
 
-            int justePrix = (rdm.nextInt(MAX_JUSTEPRIX) + 1);
-            int userPrix = 0;
+            int justPrice = generatePrice(0, MAX_JUSTEPRIX);
+            int userPrice = 0;
 
-            List<Number> alreadyUsedPrix = new ArrayList<Number>();
+            // Liste des prix utilisés par la machine lors d'une partie (pour éviter les doublons)
+            List<Number> userPrices = new ArrayList<Number>();
 
-            while(userPrix != justePrix) {
+            int min = 1;
+            int max = MAX_JUSTEPRIX;
 
-                if(userPrix == 0) {
-                    // 1er essai
-                    userPrix = (rdm.nextInt(MAX_JUSTEPRIX) + 1);
+            while(userPrice != justPrice) {
+                    
+                userPrice = generatePrice(min, max);
+
+                int halfMax = max / 2;
+
+                if(userPrice < justPrice) {
+                    min = userPrice + 1;
                 } else {
-                    // <= 50
-                    if(justePrix <= (MAX_JUSTEPRIX / 2)) {
-                        if(justePrix < (MAX_JUSTEPRIX / 2 / 2)) {
-                            // 1-25
-                            userPrix = (rdm.nextInt(MAX_JUSTEPRIX / 2 / 2) + 1);
-                        } else {
-                            // 25-50
-                            userPrix = (rdm.nextInt(
-                                (MAX_JUSTEPRIX / 2) -
-                                (MAX_JUSTEPRIX / 2 / 2) + 1) +
-                                (MAX_JUSTEPRIX / 2 / 2)
-                            );
-                        }
-                    } else if(justePrix >= (MAX_JUSTEPRIX / 2)) {
-                        // >= 50
-                        if(justePrix > (MAX_JUSTEPRIX / 2) + (MAX_JUSTEPRIX / 2 / 2)) {
-                            // 75-100
-                            userPrix = (rdm.nextInt(
-                                MAX_JUSTEPRIX -
-                                ((MAX_JUSTEPRIX / 2) + (MAX_JUSTEPRIX / 2 / 2)) + 1) +
-                                ((MAX_JUSTEPRIX / 2) + (MAX_JUSTEPRIX / 2 / 2))
-                            );
-
-                        } else {
-                            // 50-75
-                            userPrix = (rdm.nextInt(
-                                (MAX_JUSTEPRIX / 2) + (MAX_JUSTEPRIX / 2 / 2) -
-                                (MAX_JUSTEPRIX / 2) + 1) +
-                                (MAX_JUSTEPRIX / 2)
-                            );
-
-                        }
-                    }
-                }
-                boolean isContinue = false;
-                
-                for(int i = 0; i < alreadyUsedPrix.size(); i++) {
-                    if((userPrix > (int)alreadyUsedPrix.get(i) && userPrix < justePrix) || (userPrix < (int)alreadyUsedPrix.get(i) && userPrix > justePrix)) {
-                        isContinue = true;
-                        break;
-                    }
+                    max = userPrice - 1;
                 }
 
-                // Déjà tenté
-                if(alreadyUsedPrix.contains(userPrix) || isContinue) {
-                    continue;
+                // Prix déjà tenté || Prix hors rangée logique
+                if(!userPrices.contains(userPrice)) {
+                    
+                    // Ajout du prix tenté dans une liste && incrémentation du total d'essais
+                    userPrices.add(userPrice);
+                    totalTry++;
+
                 }
-                alreadyUsedPrix.add(userPrix);
-                totalTry++;
 
             }
 
         }
-        System.out.println("\nEn moyenne, sur " + maxGames + " parties, il m'a fallu " + (totalTry / maxGames) + " tentatives");
+        System.out.println("\nEn moyenne, sur " + MAX_GAMES + " parties, il m'a fallu " + (totalTry / MAX_GAMES) + " tentatives");
         
+    }
+
+    public static int generatePrice(int min, int max) {
+
+        Random rdm = new Random();
+
+        int newPrice = (min == 0 ? (rdm.nextInt(max) + 1) : (rdm.nextInt(max - min + 1) + min));
+
+        return newPrice;
+
     }
     
 }
