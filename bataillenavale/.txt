@@ -1,0 +1,36 @@
+Game :
+    IN_GAME
+    WELCOME_MSG
+    nbBoatPerPlayer
+    player1
+    player2
+
+    start
+    displayStatistics
+
+Player :
+    Scanner
+    name
+    grid
+
+    Player
+    startLocation
+    getName
+    getGrid
+    shoot
+
+Grid :
+    MAX_CASES
+    ERR_MSG_INVALID
+    locationsBoats
+    enemyShoots
+    deadBoats
+
+    displayGrid
+    addBoat
+    addShoot
+    checkCoordinateFormat
+    getNumberDeadBoats
+    listContainsItem
+
+La classe game permet d'instancier certains joueurs qui pourront joueur avec chacun une grille qui pourront placer 

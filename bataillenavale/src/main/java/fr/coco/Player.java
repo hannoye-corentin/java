@@ -4,9 +4,11 @@ import java.util.Scanner;
 
 public class Player {
 
+    private static final Scanner scanner = new Scanner(System.in);
+
     private String name;
     private Grid grid;
-    
+
     public Player(String name) {
 
         this.name = name;
@@ -14,26 +16,56 @@ public class Player {
 
     }
 
-    public void startLocation() {
-        
-        Scanner scanner = new Scanner(System.in);
+    public Player startLocation() {
 
-        int i = 0;
+        System.out.println(this.name + ", entrez les coordonnées de vos navires, sous la forme 'L C'");
+        System.out.println("(L représente la ligne entre 0 et " + String.valueOf(Game.GRID_MAX_CASES) + " et C la colonne entre 0 et " + String.valueOf(Game.GRID_MAX_CASES) + ").");
 
-        while(i <= 4) {
+        int i = 1;
 
-            System.out.print("Veuillez entrer des coordonnées pour votre navire : ligne colonne : ");
+        while(i <= Game.nbBoatPerPlayer) {
+
+            System.out.print("Entrez les coordonnées du navire " + i + " : ");
 
             String location = scanner.nextLine();
 
-            String[] locations = location.split(" ");
-
-            grid.add
-
-            i++;
+            if(this.grid.addBoat(location)) {
+                i++;
+            }
 
         }
-        scanner.close();
+        this.grid.displayGrid();
+
+        for(int l = 1; l <= 100; l++) {
+            System.out.println();
+        }
+
+        return this;
+
+    }
+
+    public String getName() {
+        return this.name;
+    }
+
+    public Grid getGrid() {
+        return this.grid;
+    }
+
+    public boolean shoot(Player defender) {
+
+        System.out.print(this.name + ", entrez les coordonnées de votre tir : ");
+
+        String shoot = scanner.nextLine();
+
+        return this.grid.addShoot(this, defender, shoot);
+
+    }
+
+    public void displayStatistics() {
+
+        System.out.println(this.getName());
+        this.getGrid().displayGrid();
 
     }
 
